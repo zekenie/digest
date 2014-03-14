@@ -7,8 +7,8 @@ module.exports = function(sequelize, DataTypes) {
     {
       classMethods:{
         associate:function(models) {
-          Vote.hasOne(models.User)
-              .hasOne(models.Story)
+          Vote.belongsTo(models.User)
+              .belongsTo(models.Story)
         }
       }
     })

@@ -14,9 +14,9 @@ module.exports = function(sequelize, DataTypes) {
       classMethods:{
         associate:function(models) {
           Recommendation
-              .hasOne(models.User, {as:'recommender'})
-              .hasOne(models.User, {as:'recommendee'})
-              .hasOne(models.Story)
+              .belongsTo(models.User, {as:'recommender'})
+              .belongsTo(models.User, {as:'recommendee'})
+              .belongsTo(models.Story)
         }
       }
     })

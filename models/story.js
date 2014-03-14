@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
           Story.hasMany(models.Tag)
                .hasMany(models.Vote)
                .hasMany(models.Recommendation)
-               .hasOne(models.User)
+               .belongsTo(models.User)
         }
       }
     })
