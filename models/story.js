@@ -3,7 +3,13 @@ module.exports = function(sequelize, DataTypes) {
     {
       title:DataTypes.STRING,
       body:DataTypes.STRING,
-
+      url:{
+        type:DataTypes.STRING,
+        validate:{
+          isUrl:true
+        }
+      },
+      clicks:DataTypes.ARRAY(DataTypes.INTEGER)
     },
 
     {

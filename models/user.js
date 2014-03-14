@@ -8,9 +8,11 @@ module.exports = function(sequelize, DataTypes) {
     {
       instanceMethods:{
         email:function() {},
-        reccomend:function(user,story) {},
+        reccomend:function(user,story,cb) {
+          sequelize.model('Recommendation').create({story:story,user:user}).complete(cb);
+        },
         vote:function(story,cb) {
-          sequelize.model('vote').create({story:story,user:this}).complete(cb);
+          sequelize.model('Vote').create({story:story,user:this}).complete(cb);
         },
         tagSubscribe:function(tag,cb) {
           this.addTag(tag).complete(cb);
