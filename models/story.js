@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Story = sequelize.define('Story',
     {
-      title:DataTypes:STRING,
+      title:DataTypes.STRING,
       body:DataTypes.STRING,
 
     },
@@ -16,4 +16,6 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     })
+
+  return Story
 }

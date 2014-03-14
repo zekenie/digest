@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Recommendation = sequelize.define('Recommendation',
     {
-      
+
     },
 
     {
@@ -14,4 +14,5 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     })
+  return Recommendation
 }

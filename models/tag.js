@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Tag = sequelize.define('Tag',
     {
-      name:DataTypes:STRING,
+      name:DataTypes.STRING,
     },
 
     {
@@ -11,4 +11,6 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     })
+
+  return Tag
 }
