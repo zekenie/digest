@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
               .hasMany(models.Recommendation, {as:'recommendationsForUser'})
               .hasMany(models.Recommendation, {as:'recommendationsByUser'})
               .hasMany(models.Vote)
-              .hasMany(models.tag)
+              .hasMany(models.Tag)
         }
       }
     })

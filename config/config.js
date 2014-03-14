@@ -3,8 +3,8 @@ module.exports = {
 		mongo:'mongodb://localhost',
 		db:{
 			host:'localhost',
-			db:'Nierenberg',
-			user:'Nierenberg',
+			db:process.env.USER,
+			user:process.env.USER,
 			port:5432,
 			password:''
 		}
