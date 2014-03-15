@@ -7,4 +7,7 @@ var express = require('express'),
 
 require('./config/express')(app,config,passport);
 
+if(env === 'development')
+	require('./config/repl')(app,db);
+
 app.listen(8080);
