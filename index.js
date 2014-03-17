@@ -6,7 +6,7 @@ var express = require('express'),
     db = require('./models')(config)
 
 require('./config/express')(app,config,passport);
-
+require('./config/routes')(app,passport,db);
 if(env === 'development')
 	require('./config/repl')(app,db);
 
