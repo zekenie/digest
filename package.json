@@ -17,6 +17,10 @@
     "connect-mongo": "*",
     "connect-flash": "*",
     "bower": "*",
-    "inflection": "~1.3.5"
+    "inflection": "~1.3.5",
+    "jasmine-node":"*"
+  },
+  "scripts":{
+    "test":"jasmine-node spec/"
   }
 }
