@@ -1,74 +1,7 @@
-var promiseFactory = function(err,n) {
-	var records = null;
-	if(n === 1)
-		records = recordFactory();
-	if(n > 1)
-		records = [
-			recordFactory(1),
-			recordFactory(2)
-		];
-	return {
-		complete:function(fn) {
-			fn(err,records);
-		}
-	}
-}
-
-var recordFactory = function(id) {
-	id = id || 1;
-	return {
-		id:id,
-		save:function() {
-			return promiseFactory(null,1)
-		},
-		destroy:function() {
-			return promiseFactory(null,0);
-		}
-	};
-};
-
-var table = {
-	find:function(id) {
-		if(id === 'err')
-			return promiseFactory('err');
-		else if(id > 0)
-			return promiseFactory(null,1);
-		else
-			return promiseFactory(null,0);
-	},
-	findAll:function(query) {
-		return promiseFactory(null,2)
-	},
-	build:function(obj) {
-		return recordFactory();
-	}
-};
-
-var Req = function() {};
-var Res = function() {};
-
-Res.prototype.json = function(obj) {};
-Res.prototype.send = function(status) {};
-
-var RequestRunner = function(fnArray,load) {
-	this.route = route;
-	this.req = new Req();
-	this.res = new Res();
-	if(this.load) {
-		this.route.splice(0,0,load)
-	}
-	this.i = 0;
-	this.next();
-}
-
-RequestRunner.prototype.next = function() {
-	if(i < this.route.length)
-		this.route[i](this.req,this.res,this.next);
-	this.i++;
-}
-
-var Controller = require('../../lib/Controller'),
-	controller = new Controller({},table);
+var sequalizeMock = require('../helpers/sequalizeMock'),
+	expressMock = require('../helpers/expressMock'),
+	Controller = require('../../lib/Controller'),
+	controller = new Controller({},sequalizeMock);
 
 //spies
 
@@ -88,8 +21,8 @@ describe('load',function() {
 	var req,res;
 
 	beforeEach(function() {
-		req = new Req();
-		res = new Res();
+		req = new expressMock.Req();
+		res = new expressMock.Res();
 		spyOn(res,'send')
 	});
 
@@ -109,8 +42,26 @@ describe('load',function() {
 		controller.load(req,res,function() {
 			expect(req.controller).not.toBeUndefined();
 			next();
-		},1)
+		},1);
 	})
 });
 
-// describe('')
+describe('jsonRes',function() {
+	var req,res;
+	beforeEach(function() {
+		req = new expressMock.Req();
+		res = new expressMock.Res();
+		spyOn(res,'json');
+	});
+
+	it('should call json on res',function() {
+		req.controller = 'foo';
+		controller.jsonRes(req,res);
+		expect(res.json).toHaveBeenCalledWith(req.controller);
+	})
+});
+
+describe('delete',function() {
+	xit('should call next with err when sequelize has an error');
+	xit('should call res.send with 200 after delete is performed');
+});
