@@ -62,6 +62,13 @@ describe('jsonRes',function() {
 });
 
 describe('delete',function() {
-	xit('should call next with err when sequelize has an error');
-	xit('should call res.send with 200 after delete is performed');
+	var express;
+	beforeEach(function() {
+		express = new expressMock.RequestRunner(controller.delete,true);
+		spyOn(express.res,'send');
+	});
+	it('should call res.send with 200 after delete is performed',function() {
+		express.next();
+		expect(express.res.send).toHaveBeenCalledWith(200);
+	});
 });

@@ -1,23 +1,24 @@
+var sequelizeMock = require('./sequalizeMock');
+
 var Req = function() {};
 var Res = function() {};
 
 Res.prototype.json = function(obj) {};
 Res.prototype.send = function(status) {};
 
-var RequestRunner = function(fnArray,load) {
-	this.route = route;
+var RequestRunner = function(fnArray) {
+	this.fnArray = fnArray;
 	this.req = new Req();
 	this.res = new Res();
 	if(this.load) {
-		this.route.splice(0,0,load)
+		this.req.controller = sequelizeMock.find(1)
 	}
 	this.i = 0;
-	this.next();
 }
 
 RequestRunner.prototype.next = function() {
-	if(i < this.route.length)
-		this.route[i](this.req,this.res,this.next);
+	if(this.i < this.fnArray.length)
+		this.fnArray[this.i](this.req,this.res,this.next);
 	this.i++;
 }
 
