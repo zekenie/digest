@@ -8,5 +8,13 @@ module.exports = {
 			port:5432,
 			password:''
 		}
+	},
+	test:{
+		db:{
+			host:'localhost',
+			db:'travis_ci_test',
+			user:'postgres',
+			password:''
+		}
 	}
 }

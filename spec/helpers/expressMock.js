@@ -6,6 +6,7 @@ var Res = function() {};
 Res.prototype.json = function(obj) {};
 Res.prototype.send = function(status) {};
 
+
 var RequestRunner = function(fnArray) {
 	this.fnArray = fnArray;
 	this.req = new Req();
