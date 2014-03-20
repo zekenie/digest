@@ -1,10 +1,4 @@
-var cap = function(str){
-    return str.substr(0,1).toUpperCase() + str.substr(1);
-  },
-  lower = function(str) {
-    return str.substr(0,1).toLowerCase() + str.substr(1);
-  };
-
+var str = require('../lib/str')
 var router = {
   '/:model':{
     get:'index',
@@ -28,7 +22,7 @@ module.exports = function(app,passport,db) {
   }
 
   app.param('model',function(req,res,next,model) {
-    model = cap(model);
+    model = str.cap(model);
     if(!db[model]) return res.send(404);
     req.model = db[model];
     next();
