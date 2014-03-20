@@ -13,7 +13,7 @@ var router = {
   '/:model/:id':{
     get:'view',
     put:'update',
-    del:'delete'
+    delete:'delete'
   }
 };
 
@@ -27,14 +27,14 @@ module.exports = function(app,passport,db) {
     }
   }
 
-  app.params('model',function(req,res,next,model) {
+  app.param('model',function(req,res,next,model) {
     model = cap(model);
     if(!db[model]) return res.send(404);
     req.model = db[model];
     next();
   });
 
-  app.params('id',function(req,res,next,id) {
+  app.param('id',function(req,res,next,id) {
     db[req.model].find(id).complete(function(err,record) {
       if(err) return next(err);
       if(!record) return res.send(404);

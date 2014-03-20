@@ -4,7 +4,10 @@
  */
 
 var express = require('express')
-  , mongoStore = require('connect-mongo')(express)
+  , expressSession = require('express-session')
+  , csurf = require('csurf')
+  , compression = require('compression')
+  , RedisStore = require('connect-redis')(expressSession)
   , flash = require('connect-flash')
   , pkg = require('../package.json')
   , bodyParser = require('body-parser')
@@ -18,7 +21,7 @@ module.exports = function (app, config, passport) {
   app.set('showStackError', true)
 
   // should be placed before express.static
-  app.use(express.compress({
+  app.use(compression({
     filter: function (req, res) {
       return /json|text|javascript|css/.test(res.getHeader('Content-Type'))
     },
@@ -45,12 +48,9 @@ module.exports = function (app, config, passport) {
   app.use(methodOverride())
 
   // express/mongo session storage
-  app.use(express.session({
+  app.use(expressSession({
     secret: 'foo',
-    store: new mongoStore({
-      url: config.mongo,
-      db : 'sessions'
-    })
+    store: new RedisStore(config.redis)
   }))
 
   // use passport session
@@ -62,7 +62,7 @@ module.exports = function (app, config, passport) {
 
   // adds CSRF support
   if (process.env.NODE_ENV !== 'test') {
-    app.use(express.csrf())
+    app.use(csurf())
 
     // This could be moved to view-helpers :-)
     app.use(function(req, res, next){
