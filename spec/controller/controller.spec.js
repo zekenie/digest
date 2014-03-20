@@ -64,11 +64,14 @@ describe('jsonRes',function() {
 describe('delete',function() {
 	var express;
 	beforeEach(function() {
-		express = new expressMock.RequestRunner(controller.delete,true);
+		express = new expressMock.RequestRunner(controller.delete);
 		spyOn(express.res,'send');
 	});
-	it('should call res.send with 200 after delete is performed',function() {
-		express.next();
-		expect(express.res.send).toHaveBeenCalledWith(200);
+	it('should call res.send with 200 after delete is performed',function(next) {
+		express.load(function(err,record) {
+			express.next();
+			expect(express.res.send).toHaveBeenCalledWith(200);
+			next();
+		})
 	});
 });

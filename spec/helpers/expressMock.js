@@ -7,14 +7,16 @@ Res.prototype.json = function(obj) {};
 Res.prototype.send = function(status) {};
 
 
-var RequestRunner = function(fnArray) {
+var RequestRunner = function(fnArray,load) {
 	this.fnArray = fnArray;
 	this.req = new Req();
 	this.res = new Res();
-	if(this.load) {
-		this.req.controller = sequelizeMock.find(1)
-	}
 	this.i = 0;
+}
+
+RequestRunner.prototype.load = function(cb) {
+	console.log('fake load called')
+	this.req.controller = sequelizeMock.find(1).complete(cb);
 }
 
 RequestRunner.prototype.next = function() {

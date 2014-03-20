@@ -6,6 +6,8 @@
   "author": "Zeke Nierenberg",
   "dependencies": {
     "express": "*",
+    "body-parser": "~1.0.0",
+    "method-override": "~1.0.0",
     "sequelize": "*",
     "pg": "*",
     "mysql": "*",
