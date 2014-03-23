@@ -12,7 +12,7 @@ var router = {
 };
 
 module.exports = function(app,passport,db) {
-  var api = require('../lib/api')(db);
+  var api = require('../lib/api')();
 
   for(routeStr in router) {
     var route = app.route(routeStr);

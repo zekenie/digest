@@ -22,6 +22,7 @@
     "passport-facebook": "*",
     "connect-redis": "*",
     "connect-flash": "*",
+    "ejs":"*",
     "bower": "*",
     "inflection": "~1.3.5",
     "jasmine-node":"*"

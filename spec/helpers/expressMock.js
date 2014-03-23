@@ -1,7 +1,9 @@
 var sequelizeMock = require('./sequalizeMock');
 
 var Req = function() {};
-var Res = function() {};
+var Res = function() {
+	this.locals = {};
+};
 
 Res.prototype.json = function(obj) {};
 Res.prototype.send = function(status) {};

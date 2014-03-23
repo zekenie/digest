@@ -4,17 +4,22 @@ var path = require('path');
 module.exports = function(app) {
   app.use(function(req,res,next) {
     if(res.headerSent) return;
-    if(req.accepts('json') === 'json') return next()
+    // if(req.accepts('json') === 'json') {
+    //   console.log('redirecting because accepts json')
+    //   return next()
+    // }
     if(req.model && req.view) {
       //check for view
-      var viewPath = path.join(process.cwd(),'views',req.model,req.view + '.ejs')
-      fs.exists(viewPath,function(err,fileExists) {
-        if(err) return next(err);
+      var viewPath = path.join(process.cwd(),'views',req.model.name,req.view + '.ejs')
+      fs.exists(viewPath,function(fileExists) {
         if(fileExists)
-          res.render(req.model + '/' + req.view)
+          res.render(req.model.name + '/' + req.view)
+        else
+          next();
       })
     } else {
       next();
+      console.log('dont have model or view')
     }
   });
 

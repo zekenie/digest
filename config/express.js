@@ -5,7 +5,6 @@
 
 var express = require('express')
   , expressSession = require('express-session')
-  , csurf = require('csurf')
   , compression = require('compression')
   , RedisStore = require('connect-redis')(expressSession)
   , flash = require('connect-flash')
@@ -31,12 +30,11 @@ module.exports = function (app, config, passport) {
   app.use(express.static(config.root + '/public'))
 
   // set views path, template engine and default layout
-  app.set('views', config.root + '/views')
+  app.set('views', process.cwd() + '/views')
   app.set('view engine', 'ejs')
 
-  // expose package.json to views
   app.use(function (req, res, next) {
-    res.locals.pkg = pkg
+    req.pkg = pkg
     next()
   })
 
@@ -59,17 +57,6 @@ module.exports = function (app, config, passport) {
 
   // connect flash for flash messages - should be declared after sessions
   app.use(flash())
-
-  // adds CSRF support
-  if (process.env.NODE_ENV !== 'test') {
-    app.use(csurf())
-
-    // This could be moved to view-helpers :-)
-    app.use(function(req, res, next){
-      res.locals.csrf_token = req.csrfToken()
-      next()
-    })
-  }
 
   // development env config
   if(env === 'development')

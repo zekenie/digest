@@ -28,6 +28,7 @@ var recordFactory = function(id) {
 };
 
 var table = {
+	name:'Sometable',
 	find:function(id) {
 		if(id === 'err')
 			return promiseFactory('err');
